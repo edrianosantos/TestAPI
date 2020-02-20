@@ -29,7 +29,7 @@ namespace TestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connStr = Configuration.GetConnectionString("MyDataBaseContextCustom1");
+            var connStr = Configuration.GetConnectionString("MyDataBaseContextCustom");
             var server = Environment.GetEnvironmentVariable("SERVER");
             var port = Environment.GetEnvironmentVariable("PORT");
             var db = Environment.GetEnvironmentVariable("DATABASE");
