@@ -49,7 +49,7 @@ namespace TestAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TodoItems todoItems)
         {
-            if(todoItems == null || todoItems.IsComplete == null || string.IsNullOrEmpty(todoItems.Name))
+            if(todoItems == null || !todoItems.IsComplete || string.IsNullOrEmpty(todoItems.Name))
             {
                 return BadRequest("Objeto está vazio.");
             }
