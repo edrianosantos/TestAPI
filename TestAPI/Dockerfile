@@ -1,22 +1,18 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-env
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
-WORKDIR /src
-COPY ["TestAPI/TestAPI.csproj", "TestAPI/"]
-RUN dotnet restore "TestAPI/TestAPI.csproj"
-COPY . .
-WORKDIR "/src/TestAPI"
-RUN dotnet build "TestAPI.csproj" -c Release -o /app/build
+# Copiar csproj e restaurar as dependencias
+COPY *.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "TestAPI.csproj" -c Release -o /app/publish
+RUN pwsh -Command Write-Host "TestAPI: Gerando uma nova imagem Docker com Alpine e testando o PowerShell Core"
 
-FROM base AS final
+# Build da aplicacao
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Build da imagem
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "TestAPI.dll"]
