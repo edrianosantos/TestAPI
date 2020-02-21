@@ -4,10 +4,10 @@ EXPOSE 80
 EXPOSE 443
 
 # Copiar csproj e restaurar dependencias
-#COPY *.csproj ./
-COPY ["TestAPI/TestAPI.csproj", "TestAPI/"]
-#RUN dotnet restore
-RUN dotnet restore "TestAPI/TestAPI.csproj"
+COPY *.csproj ./
+#COPY ["TestAPI/TestAPI.csproj", "TestAPI/"]
+RUN dotnet restore
+#RUN dotnet restore "TestAPI/TestAPI.csproj"
 
 RUN pwsh -Command Write-Host "TestAPI: Gerando uma nova imagem Docker com Alpine e testando o PowerShell Core"
 
