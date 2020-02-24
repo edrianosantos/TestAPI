@@ -30,11 +30,12 @@ namespace TestAPI
         public void ConfigureServices(IServiceCollection services)
         {
             var connStr = Configuration.GetConnectionString("MyDataBaseContextAzure");
-            var server = Environment.GetEnvironmentVariable("SERVER");
-            var port = Environment.GetEnvironmentVariable("PORT");
-            var db = Environment.GetEnvironmentVariable("DATABASE");
-            var user = Environment.GetEnvironmentVariable("USER");
-            var pass = Environment.GetEnvironmentVariable("PASSWORD");
+
+            var server = Configuration["SERVER"];
+            var port = Configuration["PORT"];
+            var db = Configuration["DATABASE"];
+            var user = Configuration["USER"];
+            var pass = Configuration["PASSWORD"];
 
             var conn = string.Format(connStr, server, port, db, user, pass);
 
