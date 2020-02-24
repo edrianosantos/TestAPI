@@ -32,7 +32,7 @@ namespace TestAPI
             var connStr = Configuration.GetConnectionString("MyDataBaseContextAzure");
 
             var server = Configuration["SERVER"];
-            var port = Configuration["PORT"];
+            var port = Configuration["SERVER_PORT"];
             var db = Configuration["DATABASE"];
             var user = Configuration["USER"];
             var pass = Configuration["PASSWORD"];
